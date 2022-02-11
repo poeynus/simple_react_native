@@ -9,7 +9,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MainScreen, TermScreen} from './src/sRouter';
+import {MainScreen, TermScreen, RegisterScreen} from './src/sRouter';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +19,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={MainScreen} />
         <Stack.Screen name="Terms" component={TermScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

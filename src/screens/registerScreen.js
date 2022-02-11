@@ -1,0 +1,159 @@
+import React, {useState} from 'react';
+import {View, StyleSheet, Text, Alert} from 'react-native';
+import {Input} from 'react-native-elements';
+import {NormalInput, ButtonInput, CustomButton} from '../cRouter';
+import {COLOR_MARINE} from '../assets/constants.js';
+import {
+  duplicateUserID,
+  duplicateUserEmail,
+  duplicateUserNickname,
+} from '../api/service';
+
+export const RegisterScreen = () => {
+  const [userInfo, setUserInfo] = useState({});
+  const [checkUser, setCheckUser] = useState({});
+
+  const {userID, userPW, userCheckPW, userEmail, userNickname, userPhone} =
+    userInfo;
+
+  const {dupID, dupEmail, dupNickname} = checkUser;
+
+  const dupResult = result => {
+    let msg = '';
+    if (result) {
+      msg = '다른 것을 사용해주세요.';
+    } else {
+      msg = '사용 가능합니다.';
+    }
+
+    return Alert.alert(msg);
+  };
+
+  return (
+    <View style={style.container}>
+      <View style={{flex: 0.1}} />
+      <Text style={style.text}>회원 가입</Text>
+      <ButtonInput
+        label="아이디"
+        btnTitle="중복 확인"
+        placeholder="  example01"
+        value={userID}
+        onChangeText={v => {
+          setUserInfo({...userInfo, userID: v});
+        }}
+        onPress={() => {
+          duplicateUserID(userID)
+            .then(response => {
+              response.data.data.map(item =>
+                setCheckUser({...checkUser, dupID: item.result}),
+              );
+              dupResult(false);
+            })
+            .catch(error => {
+              setCheckUser({...checkUser, dupID: true});
+              dupResult(true);
+            });
+        }}
+      />
+      <NormalInput
+        label="비밀번호"
+        placeholder="  Password"
+        inputColor="black"
+        onChangeText={v => {
+          setUserInfo({...userInfo, userPW: v});
+        }}
+        value={userPW}
+      />
+      <NormalInput
+        label="비밀번호 확인"
+        placeholder="  Password2"
+        inputColor="black"
+        onChangeText={v => {
+          setUserInfo({...userInfo, userCheckPW: v});
+        }}
+        value={userCheckPW}
+      />
+      <ButtonInput
+        label="이메일"
+        btnTitle="중복 확인"
+        placeholder="  example@nav.com"
+        value={userEmail}
+        onChangeText={v => {
+          setUserInfo({...userInfo, userEmail: v});
+        }}
+        onPress={() => {
+          duplicateUserEmail(userEmail)
+            .then(response => {
+              response.data.data.map(item =>
+                setCheckUser({...checkUser, dupEmail: item.result}),
+              );
+              dupResult(false);
+            })
+            .catch(error => {
+              setCheckUser({...checkUser, dupEmail: true});
+              dupResult(true);
+            });
+        }}
+      />
+      <ButtonInput
+        label="닉네임"
+        btnTitle="중복 확인"
+        placeholder="  닉네임(2~10자 이내)"
+        value={userNickname}
+        onChangeText={v => {
+          setUserInfo({...userInfo, userNickname: v});
+        }}
+        onPress={() => {
+          duplicateUserNickname(userNickname)
+            .then(response => {
+              response.data.data.map(item =>
+                setCheckUser({...checkUser, dupNickname: item.result}),
+              );
+              dupResult(false);
+            })
+            .catch(error => {
+              setCheckUser({...checkUser, dupNickname: true});
+              dupResult(true);
+            });
+        }}
+      />
+      <NormalInput
+        label="전화번호"
+        placeholder="  01012345678"
+        inputColor="black"
+        onChangeText={v => {
+          setUserInfo({...userInfo, userPhone: v});
+        }}
+        value={userPhone}
+      />
+      <View style={style.buttonview}>
+        <CustomButton
+          title={'회원 가입'}
+          fontSize={23}
+          loading={false}
+          backgroundColor={COLOR_MARINE}
+          onPress={() => {
+            console.log(userInfo);
+            // navigation.navigate('Terms');
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  text: {
+    fontSize: 30,
+    flex: 0.3,
+    textAlign: 'center',
+  },
+  buttonview: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
