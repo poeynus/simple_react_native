@@ -6,17 +6,18 @@ import {COLOR_MARINE} from '../assets/constants.js';
 import {
   duplicateUserID,
   duplicateUserEmail,
-  duplicateUserNickname,
+  duplicateUserName,
+  registerNew,
 } from '../api/service';
 
 export const RegisterScreen = () => {
   const [userInfo, setUserInfo] = useState({});
   const [checkUser, setCheckUser] = useState({});
 
-  const {userID, userPW, userCheckPW, userEmail, userNickname, userPhone} =
+  const {userID, userPW, userCheckPW, userEmail, userName, userPhone} =
     userInfo;
 
-  const {dupID, dupEmail, dupNickname} = checkUser;
+  const {dupID, dupEmail, dupName} = checkUser;
 
   const dupResult = result => {
     let msg = '';
@@ -27,6 +28,17 @@ export const RegisterScreen = () => {
     }
 
     return Alert.alert(msg);
+  };
+
+  const submit = () => {
+    registerNew(userPhone, userEmail, userID, userName, userPW)
+      .then(response => {
+        Alert.alert('이메일을 통해 인증해주세요');
+      })
+      .catch(error => {
+        Alert.alert('입력 정보를 확인해주세요');
+        console.log(error);
+      });
   };
 
   return (
@@ -62,6 +74,7 @@ export const RegisterScreen = () => {
         onChangeText={v => {
           setUserInfo({...userInfo, userPW: v});
         }}
+        entry={true}
         value={userPW}
       />
       <NormalInput
@@ -71,6 +84,7 @@ export const RegisterScreen = () => {
         onChangeText={v => {
           setUserInfo({...userInfo, userCheckPW: v});
         }}
+        entry={true}
         value={userCheckPW}
       />
       <ButtonInput
@@ -99,20 +113,20 @@ export const RegisterScreen = () => {
         label="닉네임"
         btnTitle="중복 확인"
         placeholder="  닉네임(2~10자 이내)"
-        value={userNickname}
+        value={userName}
         onChangeText={v => {
-          setUserInfo({...userInfo, userNickname: v});
+          setUserInfo({...userInfo, userName: v});
         }}
         onPress={() => {
-          duplicateUserNickname(userNickname)
+          duplicateUserName(userName)
             .then(response => {
               response.data.data.map(item =>
-                setCheckUser({...checkUser, dupNickname: item.result}),
+                setCheckUser({...checkUser, dupName: item.result}),
               );
               dupResult(false);
             })
             .catch(error => {
-              setCheckUser({...checkUser, dupNickname: true});
+              setCheckUser({...checkUser, duName: true});
               dupResult(true);
             });
         }}
@@ -132,10 +146,7 @@ export const RegisterScreen = () => {
           fontSize={23}
           loading={false}
           backgroundColor={COLOR_MARINE}
-          onPress={() => {
-            console.log(userInfo);
-            // navigation.navigate('Terms');
-          }}
+          onPress={submit}
         />
       </View>
     </View>

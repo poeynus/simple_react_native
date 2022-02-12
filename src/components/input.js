@@ -8,6 +8,7 @@ export const NormalInput = ({
   label,
   inputColor,
   value,
+  entry,
 }) => {
   return (
     <Input
@@ -21,6 +22,7 @@ export const NormalInput = ({
       }}
       value={value}
       labelStyle={{marginBottom: 10}}
+      secureTextEntry={entry}
     />
   );
 };
