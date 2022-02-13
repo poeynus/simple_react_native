@@ -31,7 +31,8 @@ export const RegisterScreen = () => {
   };
 
   const submit = () => {
-    registerNew(userPhone, userEmail, userID, userName, userPW)
+    console.log(userInfo);
+    registerNew(userID, userPW, userEmail, userName, userPhone)
       .then(response => {
         Alert.alert('이메일을 통해 인증해주세요');
       })
@@ -63,6 +64,7 @@ export const RegisterScreen = () => {
             })
             .catch(error => {
               setCheckUser({...checkUser, dupID: true});
+              console.log(error);
               dupResult(true);
             });
         }}

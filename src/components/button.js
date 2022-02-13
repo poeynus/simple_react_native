@@ -24,6 +24,7 @@ export const CustomButton = ({
         marginVertical: 10,
       }}
       onPress={onPress}
+      type="button"
     />
   );
 };
