@@ -2,19 +2,23 @@ import axios from 'axios';
 
 // register
 export const duplicateUserID = userID => {
-  return axios.get(`http://localhost:8080/check/id?userID=${userID}`);
+  return axios.get(`https://ktl-last.herokuapp.com/check/id?userID=${userID}`);
 };
 
 export const duplicateUserEmail = userEmail => {
-  return axios.get(`http://localhost:8080/check/email?userEmail=${userEmail}`);
+  return axios.get(
+    `https://ktl-last.herokuapp.com/check/email?userEmail=${userEmail}`,
+  );
 };
 
 export const duplicateUserName = userName => {
-  return axios.get(`http://localhost:8080/check/name?userName=${userName}`);
+  return axios.get(
+    `https://ktl-last.herokuapp.com/check/name?userName=${userName}`,
+  );
 };
 
 export const registerNew = (userID, userPW, userEmail, userName, userPhone) => {
-  return axios.put('http://localhost:8080/users/register', {
+  return axios.put('https://ktl-last.herokuapp.com/users/register', {
     userID,
     userPW,
     userEmail,

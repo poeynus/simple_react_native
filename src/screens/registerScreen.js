@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Alert} from 'react-native';
+import {View, StyleSheet, Alert, Text} from 'react-native';
 import {Input} from 'react-native-elements';
 import {NormalInput, ButtonInput, CustomButton} from '../cRouter';
 import {COLOR_MARINE} from '../assets/constants.js';
@@ -10,9 +10,13 @@ import {
   registerNew,
 } from '../api/service';
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({navigation}) => {
   const [userInfo, setUserInfo] = useState({});
-  const [checkUser, setCheckUser] = useState({});
+  const [checkUser, setCheckUser] = useState({
+    dupID: true,
+    dupEmail: true,
+    dupName: true,
+  });
 
   const {userID, userPW, userCheckPW, userEmail, userName, userPhone} =
     userInfo;
@@ -32,14 +36,19 @@ export const RegisterScreen = () => {
 
   const submit = () => {
     console.log(userInfo);
-    registerNew(userID, userPW, userEmail, userName, userPhone)
-      .then(response => {
-        Alert.alert('이메일을 통해 인증해주세요');
-      })
-      .catch(error => {
-        Alert.alert('입력 정보를 확인해주세요');
-        console.log(error);
-      });
+    if (dupName === false && dupEmail === false && dupID === false) {
+      registerNew(userID, userPW, userEmail, userName, userPhone)
+        .then(response => {
+          Alert.alert('이메일을 통해 인증해주세요');
+          navigation.navigate('Home');
+        })
+        .catch(error => {
+          Alert.alert('입력 정보를 확인해주세요');
+          console.log(error);
+        });
+    } else {
+      Alert.alert('입력 정보를 확인해주세요');
+    }
   };
 
   return (

@@ -11,7 +11,7 @@ export const CustomButton = ({
   return (
     <Button
       title={title}
-      titleStyle={{fontWeight: 'bold', fontSize: fontSize}}
+      titleStyle={{fontWeight: 'bold', fontSize: fontSize, color: 'white'}}
       loading={loading}
       buttonStyle={{
         backgroundColor: backgroundColor,
