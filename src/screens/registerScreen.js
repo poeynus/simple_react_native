@@ -7,7 +7,7 @@ import {
   duplicateUserID,
   duplicateUserEmail,
   duplicateUserName,
-  registerNew,
+  register,
 } from '../api/service';
 
 export const RegisterScreen = ({navigation}) => {
@@ -37,7 +37,7 @@ export const RegisterScreen = ({navigation}) => {
   const submit = () => {
     console.log(userInfo);
     if (dupName === false && dupEmail === false && dupID === false) {
-      registerNew(userID, userPW, userEmail, userName, userPhone)
+      register(userID, userPW, userEmail, userName, userPhone)
         .then(response => {
           Alert.alert('이메일을 통해 인증해주세요');
           navigation.navigate('Home');

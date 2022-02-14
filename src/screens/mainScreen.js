@@ -12,7 +12,7 @@ export const MainScreen = ({navigation}) => {
         loading={false}
         backgroundColor={COLOR_MINT}
         onPress={() => {
-          console.log('hi');
+          navigation.navigate('Login');
         }}
       />
       <CustomButton

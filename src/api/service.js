@@ -17,12 +17,19 @@ export const duplicateUserName = userName => {
   );
 };
 
-export const registerNew = (userID, userPW, userEmail, userName, userPhone) => {
+export const register = (userID, userPW, userEmail, userName, userPhone) => {
   return axios.put('https://ktl-last.herokuapp.com/users/register', {
     userID,
     userPW,
     userEmail,
     userName,
     userPhone,
+  });
+};
+
+export const login = (userID, userPW) => {
+  return axios.post('https://ktl-last.herokuapp.com/users/login', {
+    userID,
+    userPW,
   });
 };

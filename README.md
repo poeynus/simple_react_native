@@ -30,3 +30,7 @@ https://www.npmjs.com/package/react-native-dotenv
 무지함의 극치인 하루였다.
 회원 가입을 독특하게 PUT으로 설정 해놓고서는 POST로 계속 보내면서 삽질을 하고 있었다.
 2일이 걸렸는데 회원 가입을 POST로 만든다는 고정 관념을 내려 놓고 코드를 잘 보고 하자
+
+react-native의 localStorage
+react-native-async-storage
+https://github.com/react-native-async-storage/async-storage
