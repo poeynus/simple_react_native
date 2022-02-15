@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Button, Input} from 'react-native-elements';
+import {COLOR_MINT} from '../assets/constants';
 
 export const NormalInput = ({
   onChangeText,

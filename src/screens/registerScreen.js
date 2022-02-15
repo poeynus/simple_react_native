@@ -40,7 +40,7 @@ export const RegisterScreen = ({navigation}) => {
       register(userID, userPW, userEmail, userName, userPhone)
         .then(response => {
           Alert.alert('이메일을 통해 인증해주세요');
-          navigation.navigate('Home');
+          navigation.navigate('Login');
         })
         .catch(error => {
           Alert.alert('입력 정보를 확인해주세요');

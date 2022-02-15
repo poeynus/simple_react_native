@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {NormalInput, CustomButton} from '../cRouter';
-import {View, StyleSheet, Text, Alert, AppState} from 'react-native';
+import {View, StyleSheet, Text, Alert} from 'react-native';
+import {Divider} from 'react-native-elements';
 import {COLOR_MARINE} from '../assets/constants.js';
 import {login} from '../api/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,10 +13,10 @@ export const LoginScreen = ({navigation}) => {
   const submit = () => {
     login(userID, userPW)
       .then(response => {
-        response.data.data.map(item =>
-          AsyncStorage.setItem('user', JSON.stringify(item)),
-        );
-        navigation.navigate('Home');
+        response.data.data.map(item => {
+          AsyncStorage.setItem('@user', JSON.stringify(item));
+        });
+        navigation.navigate('Main');
       })
       .catch(error => {
         console.log(error);
@@ -56,6 +57,21 @@ export const LoginScreen = ({navigation}) => {
           onPress={submit}
         />
       </View>
+      <View style={style.vertical}>
+        <Text
+          onPress={() => {
+            navigation.navigate('FindID');
+          }}>
+          아이디 찾기
+        </Text>
+        <Divider orientation="vertical" width={5} />
+        <Text
+          onPress={() => {
+            navigation.navigate('ChangePW');
+          }}>
+          비밀번호 재설정
+        </Text>
+      </View>
     </View>
   );
 };
@@ -73,5 +89,12 @@ const style = StyleSheet.create({
   buttonview: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  vertical: {
+    marginTop: 20,
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
 });

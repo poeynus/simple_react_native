@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
@@ -14,18 +14,38 @@ import {
   TermScreen,
   RegisterScreen,
   LoginScreen,
+  AuthScreen,
+  FindIDScreen,
+  ChangePWScreen,
 } from './src/sRouter';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
-const App = () => {
+const App = ({navigation}) => {
+  useEffect(() => {
+    AsyncStorage.getItem('@user', (err, result) => {
+      if (result) {
+        navigation.navigate('Main');
+      } else {
+        navigation.navigate('Auth');
+      }
+    });
+  }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={MainScreen} />
+      <Stack.Navigator initialRouteName="Auth">
+        <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="Terms" component={TermScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="FindID" component={FindIDScreen} />
+        <Stack.Screen name="ChangePW" component={ChangePWScreen} />
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          options={{gestureEnabled: false, headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

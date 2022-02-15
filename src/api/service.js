@@ -33,3 +33,21 @@ export const login = (userID, userPW) => {
     userPW,
   });
 };
+
+export const checkEmail = userEmail => {
+  return axios.get(
+    `https://ktl-last.herokuapp.com/email/send?userEmail=${userEmail}`,
+  );
+};
+
+export const checkEmailCode = (userEmail, code) => {
+  return axios.get(
+    `https://ktl-last.herokuapp.com/email/check?userEmail=${userEmail}&code=${code}`,
+  );
+};
+
+export const chagePW = (userID, userPW) => {
+  return axios.get(
+    `https://ktl-last.herokuapp.com/users/change/pw?userID=${userID}&userPW=${userPW}`,
+  );
+};

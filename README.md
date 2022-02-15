@@ -34,3 +34,8 @@ https://www.npmjs.com/package/react-native-dotenv
 react-native의 localStorage
 react-native-async-storage
 https://github.com/react-native-async-storage/async-storage
+
+ios different android
+https://stackoverflow.com/questions/46736268/react-native-asyncstorage-clear-is-failing-on-ios
+
+test id pw = Dfg, Dfg
