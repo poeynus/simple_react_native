@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Input} from 'react-native-elements';
-import {COLOR_MINT} from '../assets/constants';
+import {COLOR_MINT, COLOR_WHITE} from '../assets/constants';
 
 export const NormalInput = ({
   onChangeText,
@@ -36,6 +36,7 @@ export const ButtonInput = ({
   label,
   value,
   onPress,
+  loading,
 }) => {
   return (
     <View style={style.btnContainer}>
@@ -58,6 +59,11 @@ export const ButtonInput = ({
           width: 90,
           marginRight: 10,
         }}
+        loadingProps={{
+          size: 'small',
+          color: COLOR_WHITE,
+        }}
+        loading={loading}
         titleStyle={{fontSize: 15, fontWeight: 'bold'}}
         onPress={onPress}
       />

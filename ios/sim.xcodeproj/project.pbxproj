@@ -96,6 +96,14 @@
 			name = sim;
 			sourceTree = "<group>";
 		};
+		200877FD1EC7461BB5CD9A10 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				A6A782F62EB0EB11DF12F159 /* Pods */,
+				200877FD1EC7461BB5CD9A10 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

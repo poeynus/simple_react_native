@@ -6,10 +6,11 @@ import {NormalInput, CustomButton} from '../cRouter.js';
 import {findIDByEmail} from '../api/service.js';
 
 export const FindIDScreen = () => {
-  const [isFindPhone, setIsFindPhone] = useState(true);
+  const [loadingStatus, setLoadingStatuse] = useState({});
   const [userInfo, setUserInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+
   const {userPhone, userEmail} = userInfo;
+  const {isFindPhone, isLoading} = loadingStatus;
 
   return (
     <View style={style.container}>
@@ -24,7 +25,7 @@ export const FindIDScreen = () => {
           buttonStyle={{width: 120, height: 100}}
           backgroundColor={COLOR_MARINE}
           onPress={() => {
-            setIsFindPhone(true);
+            setLoadingStatuse({...loadingStatus, isFindPhone: true});
           }}
         />
         <Button
@@ -34,7 +35,7 @@ export const FindIDScreen = () => {
           buttonStyle={{width: 120, height: 100}}
           backgroundColor={COLOR_MARINE}
           onPress={() => {
-            setIsFindPhone(false);
+            setLoadingStatuse({...loadingStatus, isFindPhone: false});
           }}
         />
       </View>
@@ -81,12 +82,12 @@ export const FindIDScreen = () => {
               loading={isLoading}
               backgroundColor={COLOR_MARINE}
               onPress={() => {
-                setIsLoading(true);
+                setLoadingStatuse({...loadingStatus, isLoading: true});
                 findIDByEmail(userEmail)
                   .then(response => {
                     response.data.data.map(
                       item => Alert.alert(`아이디는 ${item.userID} 입니다.`),
-                      setIsLoading(false),
+                      setLoadingStatuse({...loadingStatus, isLoading: false}),
                     );
                   })
                   .catch(error => {

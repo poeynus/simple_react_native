@@ -11,6 +11,7 @@ import {
 } from '../api/service';
 
 export const RegisterScreen = ({navigation}) => {
+  const [loadingStatus, setLoadingStatus] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [checkUser, setCheckUser] = useState({
     dupID: true,
@@ -18,36 +19,78 @@ export const RegisterScreen = ({navigation}) => {
     dupName: true,
   });
 
+  const {idLoading, emailLoading, nameLoading, newLoading} = loadingStatus;
   const {userID, userPW, userCheckPW, userEmail, userName, userPhone} =
     userInfo;
-
   const {dupID, dupEmail, dupName} = checkUser;
 
-  const dupResult = result => {
-    let msg = '';
-    if (result) {
-      msg = '다른 것을 사용해주세요.';
-    } else {
-      msg = '사용 가능합니다.';
-    }
+  const onCheckID = e => {
+    setLoadingStatus({...loadingStatus, idLoading: true});
+    duplicateUserID(userID)
+      .then(response => {
+        response.data.data.map(item =>
+          setCheckUser({...checkUser, dupID: item.result}),
+        );
+        Alert.alert('사용 가능합니다.');
+        setLoadingStatus({...loadingStatus, idLoading: false});
+      })
+      .catch(error => {
+        setCheckUser({...checkUser, dupID: true});
+        Alert.alert('다른 것을 사용해주세요.');
+        setLoadingStatus({...loadingStatus, idLoading: false});
+      });
+  };
 
-    return Alert.alert(msg);
+  const onCheckEmail = () => {
+    setLoadingStatus({...loadingStatus, emailLoading: true});
+    duplicateUserEmail(userEmail)
+      .then(response => {
+        response.data.data.map(item =>
+          setCheckUser({...checkUser, dupEmail: item.result}),
+        );
+        Alert.alert('사용 가능합니다.');
+        setLoadingStatus({...loadingStatus, emailLoading: false});
+      })
+      .catch(error => {
+        setCheckUser({...checkUser, dupEmail: true});
+        Alert.alert('다른 것을 사용해주세요.');
+        setLoadingStatus({...loadingStatus, emailLoading: false});
+      });
+  };
+
+  const onCheckName = () => {
+    setLoadingStatus({...loadingStatus, nameLoading: true});
+    duplicateUserName(userName)
+      .then(response => {
+        response.data.data.map(item =>
+          setCheckUser({...checkUser, dupName: item.result}),
+        );
+        Alert.alert('사용 가능합니다.');
+        setLoadingStatus({...loadingStatus, nameLoading: false});
+      })
+      .catch(error => {
+        setCheckUser({...checkUser, duName: true});
+        Alert.alert('다른 것을 사용해주세요.');
+        setLoadingStatus({...loadingStatus, nameLoading: false});
+      });
   };
 
   const submit = () => {
-    console.log(userInfo);
+    setLoadingStatus({...loadingStatus, newLoading: true});
     if (dupName === false && dupEmail === false && dupID === false) {
       register(userID, userPW, userEmail, userName, userPhone)
         .then(response => {
-          Alert.alert('이메일을 통해 인증해주세요');
+          Alert.alert(`${userName}님 환영합니다.`);
+          setLoadingStatus({...loadingStatus, newLoading: false});
           navigation.navigate('Login');
         })
         .catch(error => {
           Alert.alert('입력 정보를 확인해주세요');
-          console.log(error);
+          setLoadingStatus({...loadingStatus, newLoading: false});
         });
     } else {
       Alert.alert('입력 정보를 확인해주세요');
+      setLoadingStatus({...loadingStatus, newLoading: false});
     }
   };
 
@@ -63,20 +106,8 @@ export const RegisterScreen = ({navigation}) => {
         onChangeText={v => {
           setUserInfo({...userInfo, userID: v});
         }}
-        onPress={() => {
-          duplicateUserID(userID)
-            .then(response => {
-              response.data.data.map(item =>
-                setCheckUser({...checkUser, dupID: item.result}),
-              );
-              dupResult(false);
-            })
-            .catch(error => {
-              setCheckUser({...checkUser, dupID: true});
-              console.log(error);
-              dupResult(true);
-            });
-        }}
+        onPress={onCheckID}
+        loading={idLoading}
       />
       <NormalInput
         label="비밀번호"
@@ -106,19 +137,9 @@ export const RegisterScreen = ({navigation}) => {
         onChangeText={v => {
           setUserInfo({...userInfo, userEmail: v});
         }}
-        onPress={() => {
-          duplicateUserEmail(userEmail)
-            .then(response => {
-              response.data.data.map(item =>
-                setCheckUser({...checkUser, dupEmail: item.result}),
-              );
-              dupResult(false);
-            })
-            .catch(error => {
-              setCheckUser({...checkUser, dupEmail: true});
-              dupResult(true);
-            });
-        }}
+        onPress={onCheckEmail}
+        loading={emailLoading}
+        nativeID="userEmail"
       />
       <ButtonInput
         label="닉네임"
@@ -128,19 +149,9 @@ export const RegisterScreen = ({navigation}) => {
         onChangeText={v => {
           setUserInfo({...userInfo, userName: v});
         }}
-        onPress={() => {
-          duplicateUserName(userName)
-            .then(response => {
-              response.data.data.map(item =>
-                setCheckUser({...checkUser, dupName: item.result}),
-              );
-              dupResult(false);
-            })
-            .catch(error => {
-              setCheckUser({...checkUser, duName: true});
-              dupResult(true);
-            });
-        }}
+        onPress={onCheckName}
+        loading={nameLoading}
+        nativeID="userName"
       />
       <NormalInput
         label="전화번호"
@@ -155,7 +166,7 @@ export const RegisterScreen = ({navigation}) => {
         <CustomButton
           title={'회원 가입'}
           fontSize={23}
-          loading={false}
+          loading={newLoading}
           backgroundColor={COLOR_MARINE}
           onPress={submit}
         />

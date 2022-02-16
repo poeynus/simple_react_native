@@ -7,20 +7,23 @@ import {login} from '../api/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginScreen = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const {userID, userPW} = userInfo;
 
   const submit = () => {
+    setIsLoading(true);
     login(userID, userPW)
       .then(response => {
         response.data.data.map(item => {
           AsyncStorage.setItem('@user', JSON.stringify(item));
         });
+        setIsLoading(false);
         navigation.navigate('Main');
       })
       .catch(error => {
-        console.log(error);
         Alert.alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+        setIsLoading(false);
       });
   };
 
@@ -52,7 +55,7 @@ export const LoginScreen = ({navigation}) => {
         <CustomButton
           title={'로그인'}
           fontSize={23}
-          loading={false}
+          loading={isLoading}
           backgroundColor={COLOR_MARINE}
           onPress={submit}
         />
