@@ -51,3 +51,9 @@ export const chagePW = (userID, userPW) => {
     `https://ktl-last.herokuapp.com/users/change/pw?userID=${userID}&userPW=${userPW}`,
   );
 };
+
+export const findIDByEmail = userEmail => {
+  return axios.get(
+    `https://ktl-last.herokuapp.com/users/find/id?userEmail=${userEmail}`,
+  );
+};

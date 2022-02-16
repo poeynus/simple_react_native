@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button} from 'react-native-elements/dist/buttons/Button';
+import {COLOR_WHITE} from '../assets/constants';
 
 export const CustomButton = ({
   title,
@@ -13,6 +14,10 @@ export const CustomButton = ({
       title={title}
       titleStyle={{fontWeight: 'bold', fontSize: fontSize, color: 'white'}}
       loading={loading}
+      loadingProps={{
+        size: 'small',
+        color: COLOR_WHITE,
+      }}
       buttonStyle={{
         backgroundColor: backgroundColor,
         borderRadius: 5,
