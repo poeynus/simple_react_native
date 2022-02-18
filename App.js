@@ -19,6 +19,7 @@ import {
   FindIDScreen,
   ChangePWScreen,
   UploadPostScreen,
+  PostDetailScreen,
 } from './src/sRouter';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -52,6 +53,11 @@ const App = ({navigation}) => {
         <Stack.Screen
           name="UploadPost"
           component={UploadPostScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PostDetail"
+          component={PostDetailScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

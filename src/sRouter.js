@@ -6,3 +6,4 @@ export {MainScreen} from './screens/mainScreen';
 export {FindIDScreen} from './screens/findIDScreen';
 export {ChangePWScreen} from './screens/changePWScreen';
 export {UploadPostScreen} from './screens/uploadPostScreen';
+export {PostDetailScreen} from './screens/postDetail';

@@ -23,7 +23,7 @@ export const MainScreen = ({navigation}) => {
   return (
     <>
       <CustomHeader navigation={navigation} />
-      <CustomList isFocus={isFocus} />
+      <CustomList navigation={navigation} isFocus={isFocus} />
       <CustomDial navigation={navigation} isFocus={isFocus} />
     </>
   );

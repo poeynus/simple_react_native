@@ -4,7 +4,7 @@ import {ListItem, Avatar} from 'react-native-elements';
 import {getPostList} from '../api/service';
 import {COLOR_MARINE} from '../assets/constants';
 
-export const CustomList = ({isFocus}) => {
+export const CustomList = ({isFocus, navigation}) => {
   const [postList, setPostList] = useState([]);
   const [category, setCategory] = useState([]);
 
@@ -19,7 +19,11 @@ export const CustomList = ({isFocus}) => {
   }, [isFocus]);
 
   const renderPost = ({item}) => (
-    <ListItem bottomDivider>
+    <ListItem
+      bottomDivider
+      onPress={() => {
+        navigation.navigate('PostDetail', {postID: item.postNum});
+      }}>
       <Text>{item.postNum}</Text>
       <ListItem.Content>
         <Text style={style.textTitle}>{item.postTitle}</Text>

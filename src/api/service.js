@@ -84,3 +84,7 @@ export const uploadPost = (
     userName,
   });
 };
+
+export const getSomePost = postNum => {
+  return axios.get(`https://ktl-last.herokuapp.com/posts/${postNum}`);
+};
