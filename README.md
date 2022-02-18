@@ -39,3 +39,7 @@ ios different android
 https://stackoverflow.com/questions/46736268/react-native-asyncstorage-clear-is-failing-on-ios
 
 test id pw = Dfg, Dfg
+
+react-native dropdown
+react-native-element-dropdown
+https://www.npmjs.com/package/react-native-element-dropdown

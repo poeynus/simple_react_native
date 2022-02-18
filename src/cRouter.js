@@ -4,3 +4,4 @@ export {HorizontalLine} from './components/horizontalLine';
 export {NormalInput, ButtonInput} from './components/input';
 export {CustomHeader} from './components/header';
 export {CustomList} from './components/listItem';
+export {CustomDial} from './components/dial';

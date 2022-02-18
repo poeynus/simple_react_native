@@ -10,6 +10,7 @@ export const NormalInput = ({
   inputColor,
   value,
   entry,
+  width,
 }) => {
   return (
     <Input
@@ -24,6 +25,7 @@ export const NormalInput = ({
       value={value}
       labelStyle={{marginBottom: 10}}
       secureTextEntry={entry}
+      containerStyle={{width: width}}
     />
   );
 };

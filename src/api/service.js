@@ -61,3 +61,26 @@ export const findIDByEmail = userEmail => {
 export const getPostList = () => {
   return axios.get(`https://ktl-last.herokuapp.com/posts`);
 };
+export const uploadPost = (
+  nameStore,
+  postCategory,
+  postTitle,
+  postContent,
+  postURL,
+  costOrderMin,
+  costOrderRemain,
+  userID,
+  userName,
+) => {
+  return axios.post(`https://ktl-last.herokuapp.com/posts`, {
+    nameStore,
+    postCategory,
+    postTitle,
+    postContent,
+    postURL,
+    costOrderMin,
+    costOrderRemain,
+    userID,
+    userName,
+  });
+};

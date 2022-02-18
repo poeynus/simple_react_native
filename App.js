@@ -7,6 +7,7 @@
  */
 
 import React, {useEffect} from 'react';
+import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
@@ -17,12 +18,14 @@ import {
   AuthScreen,
   FindIDScreen,
   ChangePWScreen,
+  UploadPostScreen,
 } from './src/sRouter';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
 const App = ({navigation}) => {
+  LogBox.ignoreAllLogs();
   useEffect(() => {
     AsyncStorage.getItem('@user', (err, result) => {
       if (result) {
@@ -45,6 +48,11 @@ const App = ({navigation}) => {
           name="Main"
           component={MainScreen}
           options={{gestureEnabled: false, headerShown: false}}
+        />
+        <Stack.Screen
+          name="UploadPost"
+          component={UploadPostScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
